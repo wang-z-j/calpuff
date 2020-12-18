@@ -1,0 +1,294 @@
+/* 
+reset样式 无需修改
+*/
+html{color:#000;background:#FFF}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,img{border:0}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}
+ol,ul{list-style:none}
+caption,th{text-align:left}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+q:before,q:after{content:''}
+abbr,acronym{border:0;font-variant:normal}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;*font-size:100%}
+a{text-decoration: none}
+
+.tishi-icon{
+  width: 22px;
+  height: 22px;
+  /* line-height: 30px; */
+  margin-bottom: 4px;
+  cursor: pointer;
+  display: inline-block;
+  background-image: url(../img/tishi@2x.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  vertical-align: middle;
+}
+.tishi-icon:hover{
+  background-image: url(../img/tishi-active@2x.png);
+}
+.btn{
+  border: 1px solid #dcdfe6;
+  display: inline-block;
+  text-align: center;
+  background: #fff;
+  /* width: 50px; */
+  padding: 3px 12px;
+  /* height: 28px; */
+  /* line-height: 28px; */
+  border-radius: 4px;
+  margin-left: 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+/* 删除按钮 */
+.del-btn{
+  background: #F56C6C;
+  border: 1px solid #F56C6C;
+  color: #fff;
+  }
+  /* 默认按钮 */
+  .primary-btn{
+    color: #fff;
+    background-color: #409eff;
+    border-color: #409eff;
+  }
+  .dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 2px;
+  }
+  .green-dot{
+    background: #67C23A;
+  }
+
+  .red-dot{
+    background: #F56C6C;
+  }
+  .blue-dot{
+    background: #409EFF;
+  }
+/* 版心 */
+.page-container{
+  width: 1440px;
+  margin: 0 auto;
+  /* background-color: aqua; */
+  /* height: 500px; */
+  padding: 24px;
+  box-sizing: border-box;
+  position: relative;
+}
+/* 任务列表 */
+.table-container{
+  display: flex;
+  /* justify-content: space-around; */
+}
+.table-column{
+  /* width: 200px; */
+  width: 300px;
+  border: 1px solid;
+  text-align: center;
+  padding: 12px;
+  box-sizing: border-box;
+  margin-right: 24px;
+  font-size: 14px;
+    color: #606266;
+}
+.table-column-title{
+  color: #909399;
+  font-size: 15px;
+  border-bottom: 1px solid #ccc;
+}
+.content-task-item{
+  height: 38px;
+  /* line-height: 38px; */
+  color: #606266;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+.content-task-item a{
+  color: #fff;
+}
+
+/* 弹窗样式 */
+.dialog{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    background: rgba(0,0,0,.3);
+}
+.dialog form{
+  width: 600px;
+  margin: 100px auto 50px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  box-sizing: border-box;
+  padding: 12px;
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+}
+.dialog form .form-title{
+  width: 100%;
+  text-align: center;
+  
+}
+.dialog form .form-item{
+  width: 50%;
+  margin-top: 18px;
+  position: relative;
+}
+.dialog form .form-item .unit{
+  color: #666;
+}
+.dialog form .form-item .input-warning{
+  font-size: 12px;
+  color: #FF4A4A;
+  position: absolute;
+  left: 85px;
+  display: none;
+}
+.dialog form  .textarea .input-warning{
+  font-size: 12px;
+  color: #FF4A4A;
+  position: absolute;
+  left: 125px;
+  display: none;
+}
+.dialog form .simulation-area{
+  width: 100%;
+}
+.dialog form input{
+  width: 160px;
+  border:1px solid #ccc;
+  position: relative;
+}
+.dialog form .warning-input{
+  border:1px solid #FF4A4A;
+}
+.dialog form .simulation-area input{
+  width: 80px;
+  margin-right: 12px;
+}
+.dialog form .textarea{
+  width: 100%;
+  margin-top: 0;
+}
+.dialog form .textarea textarea{
+  width: 100%;
+  height: 100px;
+}
+.dialog form .textarea .textarea-title{
+  height: 30px;
+  line-height: 30px;
+  position: relative;
+}
+.dialog form .textarea .textarea-title .tips{
+  background: #fff;
+  position: absolute;
+  left: 75px;
+  top: -30px;
+  box-shadow:1px 5px 10px rgba(171, 187, 232, 0.4);
+  border: 1px solid rgba(171, 187, 232, 0.4);
+  font-size: 12px;
+  color: #666666;
+  padding:4px 12px 12px;
+  box-sizing: border-box;
+  display: none;
+  z-index: 99;
+  /* height: 300px;
+  overflow-y: auto; */
+}
+
+.dialog form .textarea .textarea-title .tips::before {
+  position: absolute;
+  top: 35px;
+  left: -10px;
+  transform: translate(-50%, -50%);
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0px;
+  border-style: solid;
+  border-width: 10px;
+  border-color: #fff #fff transparent transparent;
+  transform: rotate(-135deg);
+  box-shadow: 1px -2px 2px rgba(189, 204, 201, 0.64);
+}
+.dialog form .textarea .textarea-title .area-tips{
+  top: -180px;
+}
+.dialog form .textarea .textarea-title .area-tips::before{
+  top: 185px;
+}
+.tips-item{
+  display: flex;
+  justify-content: space-between;
+  height: 20px;
+}
+.dialog form .btn-box{
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+/* 查询条件样式 */
+.query-criteria form{
+  display: flex;
+}
+.query-criteria form .form-item{
+  margin-right: 24px;
+}
+/* 任务提交按钮 */
+.showdialog{
+  margin: 20px 0;
+}
+/* loading样式 */
+.loading-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); */
+}
+.loading {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  margin: 20px auto;
+  margin-top: 200px;
+  border-right-color: #409eff;
+  animation: loading 2s linear infinite;
+}
+.loading-title {
+  text-align: center;
+  font-size: 16px;
+  color: #333333;
+}
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
