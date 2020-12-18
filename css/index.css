@@ -34,10 +34,8 @@ a{text-decoration: none}
   display: inline-block;
   text-align: center;
   background: #fff;
-  /* width: 50px; */
-  padding: 3px 12px;
-  /* height: 28px; */
-  /* line-height: 28px; */
+  vertical-align: top;
+  padding: 2px 12px;
   border-radius: 4px;
   margin-left: 12px;
   box-sizing: border-box;
@@ -76,7 +74,7 @@ a{text-decoration: none}
   }
 /* 版心 */
 .page-container{
-  width: 1440px;
+  width: 1200px;
   margin: 0 auto;
   /* background-color: aqua; */
   /* height: 500px; */
@@ -92,13 +90,14 @@ a{text-decoration: none}
 .table-column{
   /* width: 200px; */
   width: 300px;
-  border: 1px solid;
+  border: 1px solid #ccc;
   text-align: center;
   padding: 12px;
   box-sizing: border-box;
   margin-right: 24px;
   font-size: 14px;
     color: #606266;
+    border-radius: 4px;
 }
 .table-column-title{
   color: #909399;
@@ -133,11 +132,11 @@ a{text-decoration: none}
 }
 .dialog form{
   width: 600px;
-  margin: 100px auto 50px;
-  border-radius: 2px;
+  margin: 50px auto 50px;
+  border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0,0,0,.3);
   box-sizing: border-box;
-  padding: 12px;
+  padding: 12px 18px;
   background: #fff;
   display: flex;
   flex-wrap: wrap;
@@ -251,6 +250,9 @@ a{text-decoration: none}
 }
 .query-criteria form .form-item{
   margin-right: 24px;
+}
+.query-criteria form input{
+  border:1px solid #ccc;
 }
 /* 任务提交按钮 */
 .showdialog{

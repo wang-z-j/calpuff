@@ -2,19 +2,23 @@ $(function() {
     let GET_P = new Get_Params()
     let _API = new API()
     let _Draw = new Draw()
+    let _Message = new Message()
     initTask()
     $('.dialog').hide();
-    $('.loading-container').hide();
+    // $('.loading-container').hide();
     //确认提交任务
     $('#submitTask').click(function() {
-        // console.log(GET_P.getRunTaskParams())
         //通过基础检验 才发送请求
-        GET_P.getRunTaskParams() && _API.run_tasks(JSON.stringify(GET_P.getRunTaskParams())).then(res => {
-            initTask()
-            reset()
-            $('.dialog').hide();
-            // document.getElementById("run-task-form").reset(); //清空
-        })
+        if (GET_P.getRunTaskParams()) {
+            _Message.showMessage('提交中...')
+            _API.run_tasks(JSON.stringify(GET_P.getRunTaskParams())).then(res => {
+                initTask()
+                reset()
+                $('.dialog').hide();
+                _Message.showMessage('提交成功')
+                _Message.hideMessage()
+            })
+        }
     })
     //取消提交任务
     $('#cancelTask').click(function() {
@@ -23,7 +27,7 @@ $(function() {
     })
     //点击任务提交按钮 弹出dialog框
     $('.showdialog').click(function() {
-        $('.dialog').show();
+        $('.dialog').fadeIn();
     })
     //删除任务
     $('#task-aborted').on('click', '.del-btn', function() {
@@ -34,10 +38,14 @@ $(function() {
     })
     //查询任务
     $('#queryTask').click(function() {
-        GET_P.getQueryParams() && _API.get_task(GET_P.getQueryParams()).then(res => {
-            _Draw.drawTask(res)
-            $('.loading-container').hide();
-        })
+        if (GET_P.getQueryParams()) {
+            _Message.showMessage('加载中...')
+            _API.get_task(GET_P.getQueryParams()).then(res => {
+                _Draw.drawTask(res)
+                _Message.hideMessage()
+                // $('.loading-container').hide();
+            })
+        }
     })
     //重置查询条件
     $('#cancelQuery').click(function() {
@@ -75,30 +83,42 @@ $(function() {
     })
     $('#run-task-form textarea').keyup(function() {
         if ($(this).val()) {
-            $('#run-task-form textarea').removeClass("warning-input");
-            // $('#run-task-form textarea').siblings(".input-warning").css("display", "none");
-            $('#run-task-form .area').siblings(".input-warning").css("display", "none");
-
-            // input-warning
+            $(this).removeClass("warning-input");
+            $(this).siblings(".input-warning").css("display", "none");
         } else {
-            $('#run-task-form textarea').addClass("warning-input");
-            // $('#run-task-form textarea').siblings(".input-warning").css("display", "block");
-            $('#run-task-form .area').siblings(".input-warning").css("display", "block");
-
+            if (($('#run-task-form .area').val()) || ($('#run-task-form .line').val()) || ($('#run-task-form .point').val())) {
+                $('#run-task-form textarea').removeClass("warning-input");
+                $('#run-task-form .area').siblings(".input-warning").css("display", "none");
+                // input-warning
+            } else {
+                $('#run-task-form textarea').addClass("warning-input");
+                $('#run-task-form .area').siblings(".input-warning").css("display", "block");
+            }
         }
     })
     $('#run-task-form textarea').blur(function() {
         if ($(this).val()) {
-            $('#run-task-form textarea').removeClass("warning-input");
-            $('#run-task-form .area').siblings(".input-warning").css("display", "none");
-            // input-warning
+            $(this).removeClass("warning-input");
+            $(this).siblings(".input-warning").css("display", "none");
         } else {
-            $('#run-task-form textarea').addClass("warning-input");
-            $('#run-task-form .area').siblings(".input-warning").css("display", "block");
-            // $(this).addClass("warning-input");
-            // $(this).siblings(".input-warning").css("display", "block");
+            if (($('#run-task-form .area').val()) || ($('#run-task-form .line').val()) || ($('#run-task-form .point').val())) {
+                $('#run-task-form textarea').removeClass("warning-input");
+                $('#run-task-form .area').siblings(".input-warning").css("display", "none");
+                // input-warning
+            } else {
+                $('#run-task-form textarea').addClass("warning-input");
+                $('#run-task-form .area').siblings(".input-warning").css("display", "block");
+            }
         }
     })
+    $('.dialog').click(function(event) {
+        $('.dialog').hide()
+    })
+    $('#run-task-form').click(function(event) {
+        event.stopPropagation()
+        // $('.dialog').show()
+    })
+
     //重置
     function reset() {
         $(`#run-task-form .yuan-warning`).css("display", "none");
@@ -108,13 +128,17 @@ $(function() {
         $('#run-task-form textarea').siblings(".input-warning").css("display", "none");
         document.getElementById("run-task-form").reset(); //清空
     }
-
+    //加载task
     function initTask() {
+        _Message.showMessage('加载中...')
         _API.get_tasks().then(res => {
             _Draw.drawTasksList(res)
             $('.loading-container').hide();
+        }).catch(error => {
+            $('.loading-container').hide();
         })
     }
+
 });
 //获取参数
 class Get_Params {
@@ -151,7 +175,7 @@ class Get_Params {
         runTaskParams.line = $('#run-task-form .line').val()
         runTaskParams.area = $('#run-task-form .area').val()
         runTaskParams.site = $('#run-task-form .site').val()
-        // runTaskParams.test = 1
+        runTaskParams.test = 1
         this.checkRunTaskParams(runTaskParams)
         if (this.checkRunTaskParams(runTaskParams)) {
             return runTaskParams
@@ -260,7 +284,7 @@ class API {
     @params params 请求参数
     */
     _ajax(type, baseurl, params) {
-        $('.loading-container').show();
+        // $('.loading-container').show();
         let url = baseurl
         if (type === 'DELETE') {
             url = `${baseurl}?thisTime=${params.thisTime}&thisName=${params.thisName}`
@@ -347,80 +371,15 @@ class Draw {
         $('#task-active').html('')
     }
 }
-
-
-
-
-
-// function run_tasks(params) {
-//     return new Promise(function(resolve, reject) {
-//         $.ajax({
-//             type: "POST",
-//             url: `${BASEURL}/api/lava/v1/calpuff/case`,
-//             dataType: "json",
-//             headers: { 'Content-Type': 'application/json' },
-//             data: params,
-//             success: function(data) {
-//                 resolve(data)
-//             },
-//             error: function(error) {
-//                 reject(error)
-//                 return
-//             },
-//         });
-//     })
-// }
-// //获取所有任务数据
-// function get_tasks() {
-//     return new Promise(function(resolve, reject) {
-//         $.ajax({
-//             type: "get",
-//             url: `${BASEURL}/api/lava/v1/calpuff/cases`,
-//             dataType: "json",
-//             data: {},
-//             success: function(data) {
-//                 resolve(data)
-//             },
-//             error: function(error) {
-//                 reject(error)
-//                 return
-//             },
-//         });
-//     })
-// }
-// //获取查询任务数据
-// function get_task(params) {
-//     return new Promise(function(resolve, reject) {
-//         $.ajax({
-//             type: "get",
-//             url: `${BASEURL}/api/lava/v1/calpuff/case`,
-//             dataType: "json",
-//             data: params,
-//             success: function(data) {
-//                 resolve(data)
-//             },
-//             error: function(error) {
-//                 reject(error)
-//                 return
-//             },
-//         });
-//     })
-// }
-// //删除错误任务
-// function del_task(params) {
-//     return new Promise(function(resolve, reject) {
-//         $.ajax({
-//             type: "DELETE",
-//             url: `${BASEURL}/api/lava/v1/calpuff/case?thisTime=${params.thisTime}&thisName=${params.thisName}`,
-//             dataType: "json",
-//             data: {},
-//             success: function(data) {
-//                 resolve(data)
-//             },
-//             error: function(error) {
-//                 reject(error)
-//                 return
-//             },
-//         });
-//     })
-// }
+class Message {
+    constructor() {
+        // this.msg = msg
+    }
+    showMessage(msg) {
+        $('.loading-container').show();
+        $('.loading-container .loading-title').html(msg)
+    }
+    hideMessage() {
+        $('.loading-container').hide();
+    }
+}
