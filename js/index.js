@@ -175,7 +175,7 @@ class Get_Params {
         runTaskParams.line = $('#run-task-form .line').val()
         runTaskParams.area = $('#run-task-form .area').val()
         runTaskParams.site = $('#run-task-form .site').val()
-        runTaskParams.test = 1
+        // runTaskParams.test = 1
         this.checkRunTaskParams(runTaskParams)
         if (this.checkRunTaskParams(runTaskParams)) {
             return runTaskParams
